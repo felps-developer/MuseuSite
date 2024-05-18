@@ -12,6 +12,7 @@ const Cadastro = () => {
     const [estadoOptions, setEstadoOptions] = useState([]);
     const [cidadeOptions, setCidadeOptions] = useState([]);
     const [selectedEstado, setSelectedEstado] = useState(null);
+    const [selectedCidade, setSelectedCidade] = useState(null);
 
     const genero = ["masculino", "feminino", "outros"]
 
@@ -56,7 +57,7 @@ const Cadastro = () => {
             const data = await response.json()
             const options = data.map(cidades => ({
                 label: cidades.nome,
-                value: cidades.value
+                value: cidades.id
             }))
             setCidadeOptions(options)
         } catch (error) {
@@ -72,7 +73,7 @@ const Cadastro = () => {
     }, []);
 
     useEffect(() => {
-        
+
         if (selectedEstado) {
             fetchCidades(selectedEstado);
         }
@@ -134,40 +135,43 @@ const Cadastro = () => {
                         )
                     }
 
-                    <div className="flex align-items-center mb-2">
-                        <div className="flex flex-column gap-2">
-                            <label htmlFor="gener" className="text-sm font-bold uppercase ">Gênero</label>
-                            <Controller
-                                name="gener"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Dropdown
-                                        id="gener"
-                                        {...field}
-                                        {...register("gener", { required: true })}
-                                        aria-invalid={errors.gener ? true : false}
-                                        invalid={errors.gener ? true : false}
-                                        placeholder="Selecione seu Gênero"
-                                        className="md:w-15rem"
-                                        options={genero.map(g => ({ label: g, value: g }))}
-                                        onChange={(e) => field.onChange(e.value)}
-                                    />
-                                )}
-                            />
-                            {
-                                errors.gener && (
-                                    <span className="text-red-500">Campo obrigatório</span>
-                                )
-                            }
+                    <div className="flex align-items-center mb-2 gap-2">
+                        <div className="flex flex-column gap-2 w-full ">
+                        <label htmlFor="gener" className="block text-sm font-bold uppercase ">Gênero</label>
+                        <Controller
+                            name="gener"
+                            control={control}
+                            defaultValue=""
+                            className="w-full mb-1"
+
+                            render={({ field }) => (
+                                <Dropdown
+                                    id="gener"
+                                    
+                                    {...field}
+                                    {...register("gener", { required: true })}
+                                    aria-invalid={errors.gener ? true : false}
+                                    invalid={errors.gener ? true : false}
+                                    placeholder="Selecione seu Gênero"
+
+                                    options={genero.map(g => ({ label: g, value: g }))}
+                                    onChange={(e) => field.onChange(e.value)}
+                                />
+                            )}
+                        />
+                        {
+                            errors.gener && (
+                                <span className="text-red-500">Campo obrigatório</span>
+                            )
+                        }
 
                         </div>
-                        <div className="flex flex-column gap-2">
-                            <label htmlFor="idade" className="text-sm font-bold uppercase ">Idade</label>
+                        <div className="flex flex-column w-full gap-2">
+                            <label htmlFor="idade" className="text-sm font-bold uppercase">Idade</label>
                             <InputText
                                 id="idade"
                                 type="number"
-                                className="w-full "
+                                className=""
                                 {...register("idade", { required: true })}
                                 aria-invalid={errors.idade ? true : false}
                                 invalid={errors.idade ? true : false}
@@ -179,7 +183,7 @@ const Cadastro = () => {
                             }
                         </div>
                     </div>
-                    <div className="flex align-items-center mb-3">
+                    <div className="flex align-items-center mb-3 gap-2">
                         <div className="flex flex-column gap-2">
                             <label htmlFor="estado" className="text-sm font-bold uppercase ">Estado</label>
                             <Controller
@@ -195,7 +199,7 @@ const Cadastro = () => {
                                         aria-invalid={errors.estado ? true : false}
                                         invalid={errors.estado ? true : false}
                                         placeholder="Selecione seu Estado"
-                                        className="md:w-15rem"
+                                        className="w-full"
                                         options={estadoOptions}
                                         value={selectedEstado}
                                         onChange={(e) => {
@@ -228,11 +232,12 @@ const Cadastro = () => {
                                         aria-invalid={errors.cidade ? true : false}
                                         invalid={errors.cidade ? true : false}
                                         placeholder="Selecione sua Cidade"
-                                        className="md:w-15rem"
-                                        options={cidadeOptions}
-                                        value={field.value}
+                                        className="w-full"
+                                        value={selectedCidade}
                                         onChange={(e) => {
-                                            field.onChange(e.value);
+                                            // field.onChange(e.value);
+                                            setSelectedCidade(e.value)
+                                            setValue("cidade", e.value)
 
                                         }}
                                     />
