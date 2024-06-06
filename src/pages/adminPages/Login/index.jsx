@@ -27,8 +27,9 @@ const Login = () => {
     }
     return (
         <>
-            <LoginContainer className="h-screen surface-100 flex justify-content-center align-items-center">
-                <form onSubmit={handleSubmit(login)} className="w-3 surface-100 p-3 border-round-lg mb-8 mr-8">
+            <LoginContainer className="surface-100 flex justify-content-center align-items-center ">
+                <form onSubmit={handleSubmit(login)} className="w-3 surface-100 border-round-lg ">
+                    <h2 className="text-center mb-4">Login</h2>  
                     <label htmlFor="email" className="block text-sm font-bold uppercase mb-1">Email</label>
                     <div className="mb-3">
                         <InputText

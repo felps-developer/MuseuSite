@@ -105,7 +105,7 @@ const Cadastro = () => {
                     <label htmlFor="cpf" className="block text-sm font-bold uppercase mb-1">Cpf</label>
                     <InputMask
                         id="cpf"
-                        type="number"
+                        // type="number"
                         mask="999.999.999-99"
                         placeholder="999.999.999-99"
                         className="w-full mb-1"
@@ -135,35 +135,35 @@ const Cadastro = () => {
                         )
                     }
 
-                    <div className="flex align-items-center mb-2 gap-2">
+                    <div className="flex align-items-center mb-2 gap-2 w-full">
                         <div className="flex flex-column gap-2 w-full ">
-                        <label htmlFor="gener" className="block text-sm font-bold uppercase ">Gênero</label>
-                        <Controller
-                            name="gener"
-                            control={control}
-                            defaultValue=""
-                            className="w-full mb-1"
+                            <label htmlFor="gener" className="block text-sm font-bold uppercase ">Gênero</label>
+                            <Controller
+                                name="gener"
+                                control={control}
+                                defaultValue=""
+                                className="w-full mb-1"
 
-                            render={({ field }) => (
-                                <Dropdown
-                                    id="gener"
-                                    
-                                    {...field}
-                                    {...register("gener", { required: true })}
-                                    aria-invalid={errors.gener ? true : false}
-                                    invalid={errors.gener ? true : false}
-                                    placeholder="Selecione seu Gênero"
+                                render={({ field }) => (
+                                    <Dropdown
+                                        id="gener"
 
-                                    options={genero.map(g => ({ label: g, value: g }))}
-                                    onChange={(e) => field.onChange(e.value)}
-                                />
-                            )}
-                        />
-                        {
-                            errors.gener && (
-                                <span className="text-red-500">Campo obrigatório</span>
-                            )
-                        }
+                                        {...field}
+                                        {...register("gener", { required: true })}
+                                        aria-invalid={errors.gener ? true : false}
+                                        invalid={errors.gener ? true : false}
+                                        placeholder="Selecione seu Gênero"
+
+                                        options={genero.map(g => ({ label: g, value: g }))}
+                                        onChange={(e) => field.onChange(e.value)}
+                                    />
+                                )}
+                            />
+                            {
+                                errors.gener && (
+                                    <span className="text-red-500">Campo obrigatório</span>
+                                )
+                            }
 
                         </div>
                         <div className="flex flex-column w-full gap-2">
@@ -171,7 +171,7 @@ const Cadastro = () => {
                             <InputText
                                 id="idade"
                                 type="number"
-                                className=""
+                                className="w-full"
                                 {...register("idade", { required: true })}
                                 aria-invalid={errors.idade ? true : false}
                                 invalid={errors.idade ? true : false}
@@ -183,66 +183,51 @@ const Cadastro = () => {
                             }
                         </div>
                     </div>
-                    <div className="flex align-items-center mb-3 gap-2">
-                        <div className="flex flex-column gap-2">
+                    <div className="flex align-items-center mb-3 gap-2 w-full">
+                        <div className="flex flex-column gap-2 w-full">
                             <label htmlFor="estado" className="text-sm font-bold uppercase ">Estado</label>
-                            <Controller
-                                name="estado"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Dropdown
-                                        id="estado"
-
-                                        {...field}
-                                        {...register("estado", { required: true })}
-                                        aria-invalid={errors.estado ? true : false}
-                                        invalid={errors.estado ? true : false}
-                                        placeholder="Selecione seu Estado"
-                                        className="w-full"
-                                        options={estadoOptions}
-                                        value={selectedEstado}
-                                        onChange={(e) => {
-                                            const estadoId = e.value;
-                                            setSelectedEstado(estadoId);
-                                            setValue('estado', estadoId);
-                                            setValue('cidade', null)
-                                        }}
-                                    />
-                                )}
+                            <Dropdown
+                                id="estado"
+                                {...register("estado", { required: true })}
+                                aria-invalid={errors.estado ? true : false}
+                                invalid={errors.estado ? true : false}
+                                placeholder="Selecione seu Estado"
+                                className="w-full"
+                                options={estadoOptions}
+                                value={selectedEstado}
+                                onChange={(e) => {
+                                    const estadoId = e.value;
+                                    setSelectedEstado(estadoId);
+                                    setValue('estado', estadoId);
+                                    setValue('cidade', null)
+                                }}
                             />
+
                             {
                                 errors.estado && (
                                     <span className="text-red-500">Campo obrigatório</span>
                                 )
                             }
                         </div>
-                        <div htmlFor="cidade" className="flex flex-column gap-2">
+                        <div htmlFor="cidade" className="flex flex-column gap-2 ">
                             <label className="text-sm font-bold uppercase ">Cidade</label>
-                            <Controller
-                                name="cidade"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <Dropdown
-                                        id="cidade"
 
-                                        {...field}
-                                        {...register("cidade", { required: true })}
-                                        aria-invalid={errors.cidade ? true : false}
-                                        invalid={errors.cidade ? true : false}
-                                        placeholder="Selecione sua Cidade"
-                                        className="w-full"
-                                        value={selectedCidade}
-                                        onChange={(e) => {
-                                            // field.onChange(e.value);
-                                            setSelectedCidade(e.value)
-                                            setValue("cidade", e.value)
+                            <Dropdown
+                                id="cidade"
+                                {...register("cidade", { required: true })}
+                                aria-invalid={errors.cidade ? true : false}
+                                invalid={errors.cidade ? true : false}
+                                placeholder="Selecione sua Cidade"
+                                className="w-full"
+                                options={cidadeOptions}
+                                value={selectedCidade}
+                                onChange={(e) => {
+                                    setSelectedCidade(e.value)
 
-                                        }}
-                                    />
-                                )}
+                                }}
                             />
+
+
                             {
                                 errors.cidade && (
                                     <span className="text-red-500">Campo obrigatório</span>
